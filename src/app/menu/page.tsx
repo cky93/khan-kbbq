@@ -91,7 +91,25 @@ function ListItem({ item }: { item: MenuItem }) {
   );
 }
 
+const locations = [
+  {
+    id: 'fairfax',
+    name: 'Fairfax',
+    sub: 'Fair Oaks Mall',
+    phone: '(240) 956-7540',
+    yelp: 'https://www.yelp.com/biz/khan-korean-grill-and-bar-fairfax',
+  },
+  {
+    id: 'woodbridge',
+    name: 'Woodbridge',
+    sub: 'Merchant Plaza',
+    phone: '(202) 809-2104',
+    yelp: 'https://www.yelp.com/biz/khan-korean-grill-and-bar-woodbridge',
+  },
+];
+
 export default function MenuPage() {
+  const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activeTier, setActiveTier] = useState<'lunch' | 'dinner' | 'premium' | null>(null);
   const activeSection = menuSections.find((s) => s.id === activeCategory);
@@ -101,10 +119,59 @@ export default function MenuPage() {
     setActiveTier(null);
   };
 
+  const handleLocationChange = () => {
+    setSelectedLocation(null);
+    setActiveCategory(null);
+    setActiveTier(null);
+  };
+
   return (
     <div className="min-h-screen bg-black page-enter">
+      {/* ═══════ Location Selection View ═══════ */}
+      {!selectedLocation && (
+        <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1590301157890-4810ed352733?w=1920&q=85&auto=format"
+            alt="Korean BBQ galbi on the grill"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/70 to-black" />
+          <div className="relative z-10 text-center px-6 w-full max-w-xl mx-auto">
+            <p className="text-sm md:text-base font-medium tracking-[0.15em] uppercase text-white/55 mb-4">Dining</p>
+            <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight mb-4">
+              Our Menu
+            </h1>
+            <div className="w-16 h-[1px] bg-white/20 mx-auto mt-6 mb-8" />
+            <p className="text-base md:text-lg text-white/50 mb-12">
+              Select your location
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-stretch justify-center gap-4">
+              {locations.map((loc) => (
+                <button
+                  key={loc.id}
+                  onClick={() => setSelectedLocation(loc.id)}
+                  className="flex-1 bg-white/[0.06] backdrop-blur-sm border border-white/[0.1] rounded-lg px-6 py-8 text-center hover:bg-white/[0.12] hover:border-white/20 transition-all duration-300 group"
+                >
+                  <h3 className="font-heading text-2xl md:text-3xl font-bold text-white mb-1 group-hover:text-amber-400 transition-colors">
+                    {loc.name}
+                  </h3>
+                  <p className="text-sm text-white/40 mb-5">{loc.sub}</p>
+                  <div className="flex items-center justify-center gap-2 text-white/50 group-hover:text-amber-400 transition-colors">
+                    <span className="text-sm font-medium tracking-wide">View Menu</span>
+                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ═══════ Category Selection View ═══════ */}
-      {!activeCategory && (
+      {selectedLocation && !activeCategory && (
         <>
           {/* Hero banner */}
           <div className="relative h-[45vh] min-h-[360px] md:h-[50vh] md:min-h-[400px] flex items-center justify-center overflow-hidden">
@@ -115,7 +182,18 @@ export default function MenuPage() {
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black" />
             <div className="relative z-10 text-center px-6">
-              <p className="text-sm md:text-base font-medium tracking-[0.15em] uppercase text-white/55 mb-4">Dining</p>
+              <button
+                onClick={handleLocationChange}
+                className="inline-flex items-center gap-1.5 text-sm text-amber-400/70 hover:text-amber-400 transition-colors mb-4"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0115 0z" />
+                </svg>
+                <span className="font-medium tracking-wide">
+                  {locations.find(l => l.id === selectedLocation)?.name} &middot; Change
+                </span>
+              </button>
               <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight">
                 Our Menu
               </h1>
@@ -163,7 +241,7 @@ export default function MenuPage() {
       )}
 
       {/* ═══════ Active Category ═══════ */}
-      {activeCategory && activeSection && (
+      {selectedLocation && activeCategory && activeSection && (
         <div className="page-enter">
           {/* Category hero banner */}
           <div className="relative h-[30vh] min-h-[240px] md:h-[35vh] md:min-h-[280px] flex items-end overflow-hidden">
@@ -183,15 +261,27 @@ export default function MenuPage() {
           {/* Sticky navigation bar */}
           <div className="sticky top-20 z-30 bg-black/95 backdrop-blur-md border-b border-white/[0.06]">
             <div className="max-w-6xl mx-auto px-5 md:px-12 flex items-center justify-between py-3 md:py-4">
-              <button
-                onClick={() => handleCategoryChange(null)}
-                className="flex items-center gap-2 text-white/50 hover:text-white transition-colors"
-              >
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-                </svg>
-                <span className="text-sm md:text-base font-medium">Back</span>
-              </button>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => handleCategoryChange(null)}
+                  className="flex items-center gap-2 text-white/50 hover:text-white transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                  </svg>
+                  <span className="text-sm md:text-base font-medium">Back</span>
+                </button>
+                <button
+                  onClick={handleLocationChange}
+                  className="hidden sm:flex items-center gap-1 text-xs text-amber-400/60 hover:text-amber-400 transition-colors border border-amber-400/20 px-2 py-1 rounded"
+                >
+                  <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 0115 0z" />
+                  </svg>
+                  {locations.find(l => l.id === selectedLocation)?.name}
+                </button>
+              </div>
               {/* Desktop category tabs */}
               <div className="hidden md:flex items-center gap-1 bg-white/[0.04] p-1 rounded-lg">
                 {categories.map((cat) => (
