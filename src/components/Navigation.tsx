@@ -37,7 +37,7 @@ export function Navigation() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled || !isHome
-            ? 'bg-black/95 backdrop-blur-md border-b border-white/[0.06]'
+            ? 'bg-black/70 backdrop-blur-md border-b border-white/[0.06]'
             : 'bg-transparent'
         }`}
       >
