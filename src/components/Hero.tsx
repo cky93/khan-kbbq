@@ -96,11 +96,11 @@ export function Hero() {
         </div>
 
         {/* Location Cards (fade up, staggered) */}
-        <div className="flex flex-col sm:flex-row items-stretch justify-center gap-7 max-w-xl mx-auto hero-cards">
+        <div className="flex flex-col sm:flex-row items-stretch justify-center gap-4 sm:gap-10 max-w-2xl mx-auto hero-cards">
           {/* Fairfax */}
           <Link
             href="/locations/fairfax"
-            className="flex-1 bg-white/[0.06] backdrop-blur-sm border border-white/[0.1] rounded-lg px-5 py-5 text-center hover:bg-white/[0.12] hover:border-white/25 active:scale-[0.98] transition-all duration-300 cursor-pointer group"
+            className="flex-1 bg-white/[0.06] backdrop-blur-sm border border-white/[0.1] rounded-lg px-6 py-6 text-center hover:bg-white/[0.12] hover:border-white/25 active:scale-[0.98] transition-all duration-300 cursor-pointer group"
           >
             <h3 className="font-heading text-lg md:text-xl font-bold text-white mb-0.5 group-hover:text-amber-400 transition-colors">Fairfax</h3>
             <p className="text-xs text-white/40 mb-2">Fair Oaks Mall</p>
@@ -115,7 +115,7 @@ export function Hero() {
           {/* Woodbridge */}
           <Link
             href="/locations/woodbridge"
-            className="flex-1 bg-white/[0.06] backdrop-blur-sm border border-white/[0.1] rounded-lg px-5 py-5 text-center hover:bg-white/[0.12] hover:border-white/25 active:scale-[0.98] transition-all duration-300 cursor-pointer group"
+            className="flex-1 bg-white/[0.06] backdrop-blur-sm border border-white/[0.1] rounded-lg px-6 py-6 text-center hover:bg-white/[0.12] hover:border-white/25 active:scale-[0.98] transition-all duration-300 cursor-pointer group"
           >
             <h3 className="font-heading text-lg md:text-xl font-bold text-white mb-0.5 group-hover:text-amber-400 transition-colors">Woodbridge</h3>
             <p className="text-xs text-white/40 mb-2">Merchant Plaza</p>

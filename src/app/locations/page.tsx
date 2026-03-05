@@ -60,16 +60,20 @@ export default function LocationsPage() {
 
       {/* Location cards */}
       <div className="max-w-5xl mx-auto px-5 md:px-12 py-12 md:py-16">
-        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-14 md:gap-20">
           {/* Vertical divider between cards */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2">
-            <div className="w-[3px] h-full bg-gradient-to-b from-transparent via-white/40 to-transparent rounded-full" />
+          <div className="hidden md:block absolute left-1/2 top-[5%] bottom-[5%] -translate-x-1/2">
+            <div className="w-[2px] h-full bg-gradient-to-b from-transparent via-white/50 to-transparent" />
           </div>
           {locations.map((loc, i) => (
             <ScrollReveal key={loc.name} delay={(i + 1) as 1 | 2}>
               {/* Mobile horizontal divider before second card */}
               {i === 1 && (
-                <div className="md:hidden w-full h-[3px] bg-gradient-to-r from-transparent via-white/40 to-transparent rounded-full mb-8" />
+                <div className="md:hidden flex items-center gap-4 mb-10">
+                  <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent to-white/30" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
+                  <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent to-white/30" />
+                </div>
               )}
               <div className="overflow-hidden">
                 {/* Map */}
