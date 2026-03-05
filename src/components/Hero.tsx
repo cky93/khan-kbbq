@@ -85,16 +85,13 @@ export function Hero() {
           Korean Grill &amp; Bar
         </p>
 
-        {/* Menu Button */}
+        {/* Primary CTA — View Menu */}
         <Link
           href="/menu"
-          className="inline-flex items-center justify-center gap-2.5 bg-white/[0.06] backdrop-blur-sm border border-white/[0.1] rounded-lg px-8 py-4 mb-4 hover:bg-white/[0.12] hover:border-white/25 active:scale-[0.98] transition-all duration-300 group"
+          className="group relative inline-flex items-center justify-center gap-3 bg-amber-600 hover:bg-amber-500 text-white rounded-full px-10 sm:px-14 py-4 sm:py-5 mb-8 active:scale-[0.97] transition-all duration-300 shadow-lg shadow-amber-900/30 hover:shadow-amber-800/40"
         >
-          <svg className="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-          </svg>
-          <span className="text-base font-bold text-white group-hover:text-amber-400 transition-colors tracking-wide">View Menu</span>
-          <svg className="w-3.5 h-3.5 text-white/50 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <span className="text-lg sm:text-xl font-bold tracking-[0.08em] uppercase">View Our Menu</span>
+          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
           </svg>
         </Link>
