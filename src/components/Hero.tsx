@@ -130,12 +130,12 @@ export function Hero() {
       </div>
 
       {/* Slide indicators */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2.5">
+      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-1.5 sm:gap-2 md:gap-2.5">
         {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className={`w-10 h-1 rounded-full transition-all duration-500 ${
+            className={`w-6 sm:w-8 md:w-10 h-1 rounded-full transition-all duration-500 ${
               current === i ? 'bg-amber-500' : 'bg-white/20'
             }`}
             aria-label={`Go to slide ${i + 1}`}
