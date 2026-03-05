@@ -24,14 +24,12 @@ const slides = [
 
 export function Hero() {
   const [current, setCurrent] = useState(0);
-  const [loaded, setLoaded] = useState(false);
 
   const advance = useCallback(() => {
     setCurrent((prev) => (prev + 1) % slides.length);
   }, []);
 
   useEffect(() => {
-    setLoaded(true);
     const timer = setInterval(advance, 5000);
     return () => clearInterval(timer);
   }, [advance]);
@@ -62,12 +60,9 @@ export function Hero() {
       <div className="absolute bottom-0 left-0 right-0 h-1/3 warm-glow" />
 
       {/* Content */}
-      <div
-        className={`relative z-20 text-center px-6 max-w-5xl mx-auto transition-all duration-1000 ${
-          loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-        }`}
-      >
-        <div className="mb-8">
+      <div className="relative z-20 text-center px-6 max-w-5xl mx-auto">
+        {/* Logo — scale in */}
+        <div className="mb-8 hero-logo">
           <img
             src="/khanlogo-icon.png?v=6"
             alt=""
@@ -77,27 +72,31 @@ export function Hero() {
           />
         </div>
 
-        <h1 className="font-heading text-7xl sm:text-8xl md:text-9xl lg:text-[11rem] font-bold text-white tracking-tight mb-4 leading-[0.85]">
+        {/* Title — wipe reveal left to right */}
+        <h1 className="font-heading text-7xl sm:text-8xl md:text-9xl lg:text-[11rem] font-bold text-white tracking-tight mb-4 leading-[0.85] hero-title">
           Khan
         </h1>
 
-        <p className="text-lg md:text-2xl text-white/80 font-light tracking-[0.15em] uppercase mb-12">
+        {/* Subtitle — fade in */}
+        <p className="text-lg md:text-2xl text-white/80 font-light tracking-[0.15em] uppercase mb-12 hero-subtitle">
           Korean Grill &amp; Bar
         </p>
 
-        {/* Primary CTA — View Menu */}
-        <Link
-          href="/menu"
-          className="group relative inline-flex items-center justify-center gap-3 bg-amber-600 hover:bg-amber-500 text-white rounded-full px-10 sm:px-14 py-4 sm:py-5 mb-8 active:scale-[0.97] transition-all duration-300 shadow-lg shadow-amber-900/30 hover:shadow-amber-800/40"
-        >
-          <span className="text-lg sm:text-xl font-bold tracking-[0.08em] uppercase">View Our Menu</span>
-          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-          </svg>
-        </Link>
+        {/* Primary CTA — View Menu (fade up) */}
+        <div className="hero-cta">
+          <Link
+            href="/menu"
+            className="group relative inline-flex items-center justify-center gap-3 bg-amber-600 hover:bg-amber-500 text-white rounded-full px-10 sm:px-14 py-4 sm:py-5 mb-8 active:scale-[0.97] transition-all duration-300 shadow-lg shadow-amber-900/30 hover:shadow-amber-800/40"
+          >
+            <span className="text-lg sm:text-xl font-bold tracking-[0.08em] uppercase">View Our Menu</span>
+            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </Link>
+        </div>
 
-        {/* Location Cards */}
-        <div className="flex flex-col sm:flex-row items-stretch justify-center gap-3 max-w-lg mx-auto">
+        {/* Location Cards (fade up, staggered) */}
+        <div className="flex flex-col sm:flex-row items-stretch justify-center gap-3 max-w-lg mx-auto hero-cards">
           {/* Fairfax */}
           <Link
             href="/locations/fairfax"
