@@ -6,11 +6,20 @@ import type { MenuItem } from '@/lib/menu-data';
 import { ScrollReveal } from '@/components/ScrollReveal';
 
 const categories = [
-  { id: 'ayce', label: 'All-You-Can-Eat', desc: 'Unlimited premium BBQ', sub: 'Starting at $25/person', icon: '🔥' },
-  { id: 'combo', label: 'Combos', desc: 'Curated platter experiences', sub: 'For 2-6 guests', icon: '🥩' },
-  { id: 'sides', label: 'Sides & Starters', desc: 'Appetizers & Korean classics', sub: 'Banchan & more', icon: '🍱' },
-  { id: 'drinks', label: 'Bar & Drinks', desc: 'Soju, cocktails, beer & wine', sub: 'Full bar menu', icon: '🍸' },
+  { id: 'ayce', label: 'All-You-Can-Eat', desc: 'Unlimited premium BBQ', sub: 'Starting at $25/person', icon: '\u{1F525}' },
+  { id: 'combo', label: 'Combos', desc: 'Curated platter experiences', sub: 'For 2-6 guests', icon: '\u{1F969}' },
+  { id: 'sides', label: 'Sides & Starters', desc: 'Appetizers & Korean classics', sub: 'Banchan & more', icon: '\u{1F371}' },
+  { id: 'drinks', label: 'Bar & Drinks', desc: 'Soju, cocktails, beer & wine', sub: 'Full bar menu', icon: '\u{1F378}' },
 ];
+
+const tierOrder = ['lunch', 'dinner', 'premium'] as const;
+
+function isItemInTier(item: MenuItem, tier: 'lunch' | 'dinner' | 'premium'): boolean {
+  const itemTier = item.tier || 'lunch';
+  const itemIndex = tierOrder.indexOf(itemTier);
+  const selectedIndex = tierOrder.indexOf(tier);
+  return itemIndex <= selectedIndex;
+}
 
 /* ═══════════════════════════════════════════════
    Circular plate image card
@@ -84,7 +93,13 @@ function ListItem({ item }: { item: MenuItem }) {
 
 export default function MenuPage() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [activeTier, setActiveTier] = useState<'lunch' | 'dinner' | 'premium' | null>(null);
   const activeSection = menuSections.find((s) => s.id === activeCategory);
+
+  const handleCategoryChange = (catId: string | null) => {
+    setActiveCategory(catId);
+    setActiveTier(null);
+  };
 
   return (
     <div className="min-h-screen bg-black page-enter">
@@ -117,7 +132,7 @@ export default function MenuPage() {
               {categories.map((cat, i) => (
                 <ScrollReveal key={cat.id} delay={Math.min(i + 1, 4) as 1 | 2 | 3}>
                   <button
-                    onClick={() => setActiveCategory(cat.id)}
+                    onClick={() => handleCategoryChange(cat.id)}
                     className="relative w-full text-left overflow-hidden rounded group h-[200px] sm:h-[240px] md:h-[280px]"
                   >
                     <img
@@ -169,7 +184,7 @@ export default function MenuPage() {
           <div className="sticky top-20 z-30 bg-black/95 backdrop-blur-md border-b border-white/[0.06]">
             <div className="max-w-6xl mx-auto px-5 md:px-12 flex items-center justify-between py-3 md:py-4">
               <button
-                onClick={() => setActiveCategory(null)}
+                onClick={() => handleCategoryChange(null)}
                 className="flex items-center gap-2 text-white/50 hover:text-white transition-colors"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -182,7 +197,7 @@ export default function MenuPage() {
                 {categories.map((cat) => (
                   <button
                     key={cat.id}
-                    onClick={() => setActiveCategory(cat.id)}
+                    onClick={() => handleCategoryChange(cat.id)}
                     className={`px-4 lg:px-5 py-2 text-sm font-medium tracking-wide transition-all rounded-md ${
                       activeCategory === cat.id ? 'bg-white text-black' : 'text-white/30 hover:text-white/60'
                     }`}
@@ -195,7 +210,7 @@ export default function MenuPage() {
               <div className="md:hidden">
                 <select
                   value={activeCategory}
-                  onChange={(e) => setActiveCategory(e.target.value)}
+                  onChange={(e) => handleCategoryChange(e.target.value)}
                   className="bg-white/[0.06] text-white text-sm px-3 py-2 rounded border border-white/[0.1] outline-none appearance-none"
                 >
                   {categories.map((cat) => (
@@ -210,28 +225,62 @@ export default function MenuPage() {
 
           {/* Content area */}
           <div className="max-w-6xl mx-auto px-5 md:px-12 py-10 md:py-12">
-            {/* AYCE Pricing Tiers — clean, minimal, not AI-looking */}
+            {/* AYCE Tier Buttons */}
             {activeCategory === 'ayce' && (
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-white/[0.06] mb-14 md:mb-16">
-                {aycePricing.map((tier) => (
-                  <div
-                    key={tier.tier}
-                    className="py-8 px-6 md:py-10 md:px-8 text-center bg-black"
-                  >
-                    <p className="font-heading text-base md:text-lg text-white/70 mb-3 italic">{tier.tier}</p>
-                    <p className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-3">{tier.price}</p>
-                    <p className="text-sm md:text-base text-white/50 font-medium mb-5">{tier.time}</p>
-                    <div className="w-8 h-[1px] bg-white/20 mx-auto mb-5" />
-                    <p className="text-sm md:text-base text-white/60 leading-relaxed">{tier.note}</p>
-                  </div>
-                ))}
+              <div className="grid grid-cols-3 gap-3 md:gap-4 mb-10 md:mb-14">
+                {aycePricing.map((tier) => {
+                  const tierKey = tier.tier.toLowerCase() as 'lunch' | 'dinner' | 'premium';
+                  const isActive = activeTier === tierKey;
+                  return (
+                    <button
+                      key={tier.tier}
+                      onClick={() => setActiveTier(tierKey)}
+                      className={`py-6 px-4 md:py-8 md:px-6 text-center rounded-lg transition-all duration-300 border ${
+                        isActive
+                          ? 'bg-white/[0.08] border-amber-500/60 ring-1 ring-amber-500/30'
+                          : 'bg-white/[0.02] border-white/[0.08] hover:bg-white/[0.05] hover:border-white/20'
+                      }`}
+                    >
+                      <p className={`font-heading text-sm md:text-base mb-2 italic transition-colors ${
+                        isActive ? 'text-amber-400' : 'text-white/50'
+                      }`}>
+                        {tier.tier}
+                      </p>
+                      <p className={`font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-2 transition-colors ${
+                        isActive ? 'text-white' : 'text-white/70'
+                      }`}>
+                        {tier.price}
+                      </p>
+                      <p className="text-xs md:text-sm text-white/40 font-medium mb-3">{tier.time}</p>
+                      <div className="w-6 h-[1px] bg-white/15 mx-auto mb-3" />
+                      <p className="text-xs md:text-sm text-white/40 leading-relaxed">{tier.note}</p>
+                    </button>
+                  );
+                })}
               </div>
             )}
 
-            {/* Menu Categories */}
-            {activeSection.categories.map((category) => {
-              const itemsWithImages = category.items.filter(item => item.image);
-              const itemsWithoutImages = category.items.filter(item => !item.image);
+            {/* AYCE: prompt to select tier if none selected */}
+            {activeCategory === 'ayce' && !activeTier && (
+              <div className="text-center py-16 md:py-20">
+                <p className="text-lg md:text-xl text-white/40 font-medium">
+                  Select a tier above to view the menu
+                </p>
+              </div>
+            )}
+
+            {/* Menu Categories (filtered by tier for AYCE) */}
+            {(activeCategory !== 'ayce' || activeTier) && activeSection.categories.map((category) => {
+              let filteredItems = category.items;
+
+              if (activeCategory === 'ayce' && activeTier) {
+                filteredItems = category.items.filter((item) => isItemInTier(item, activeTier));
+              }
+
+              if (filteredItems.length === 0) return null;
+
+              const itemsWithImages = filteredItems.filter(item => item.image);
+              const itemsWithoutImages = filteredItems.filter(item => !item.image);
               const someHaveImages = itemsWithImages.length > 0;
 
               return (

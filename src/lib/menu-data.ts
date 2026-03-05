@@ -6,6 +6,7 @@ export interface MenuItem {
   tag?: string;
   note?: string;
   image?: string;
+  tier?: 'lunch' | 'dinner' | 'premium';
 }
 
 export interface MenuCategory {
@@ -121,10 +122,10 @@ export const menuSections: MenuSection[] = [
           { name: 'Beef Bulgogi', desc: 'Soy garlic marinated rib eye', image: img.bulgogi },
           { name: 'Spicy Beef Bulgogi', desc: 'Gochujang chili marinated', image: img.spicyBeef },
           { name: 'Hawaiian Beef Bulgogi', desc: 'Sweet tropical pineapple marinade', image: img.hawaiian },
-          { name: 'Khan Steak', desc: 'Signature thick-cut steak', tag: 'popular', image: img.steak },
-          { name: 'Galbi', desc: 'Marinated beef short rib', note: 'Premium', tag: 'popular', image: img.galbi },
-          { name: "Butcher's Cut", desc: 'Chef\u2019s daily selection', note: 'Premium', image: img.butcherCut },
-          { name: 'Cube Steak', desc: 'Premium cubed cuts', note: 'Premium', image: img.cubeSteak },
+          { name: 'Khan Steak', desc: 'Signature thick-cut steak', tag: 'popular', image: img.steak, tier: 'dinner' },
+          { name: 'Galbi', desc: 'Marinated beef short rib', note: 'Premium', tag: 'popular', image: img.galbi, tier: 'premium' },
+          { name: "Butcher's Cut", desc: 'Chef\u2019s daily selection', note: 'Premium', image: img.butcherCut, tier: 'premium' },
+          { name: 'Cube Steak', desc: 'Premium cubed cuts', note: 'Premium', image: img.cubeSteak, tier: 'premium' },
         ],
       },
       {
@@ -147,9 +148,9 @@ export const menuSections: MenuSection[] = [
         items: [
           { name: 'Soy Chicken', desc: 'Sweet soy garlic marinated', image: img.chicken },
           { name: 'Spicy Chicken', desc: 'Gochujang chili marinated', image: img.spicyChicken },
-          { name: 'Shrimp', desc: 'Seasoned prawns', note: 'Premium', image: img.shrimp },
-          { name: 'Spicy Squid', desc: 'Gochujang marinated calamari', note: 'Premium', image: img.squid },
-          { name: 'Butter Squid', desc: 'Garlic butter calamari', note: 'Premium', image: img.butterSquid },
+          { name: 'Shrimp', desc: 'Seasoned prawns', note: 'Premium', image: img.shrimp, tier: 'premium' },
+          { name: 'Spicy Squid', desc: 'Gochujang marinated calamari', note: 'Premium', image: img.squid, tier: 'premium' },
+          { name: 'Butter Squid', desc: 'Garlic butter calamari', note: 'Premium', image: img.butterSquid, tier: 'premium' },
         ],
       },
     ],

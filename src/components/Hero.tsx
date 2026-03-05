@@ -85,21 +85,6 @@ export function Hero() {
           Korean Grill &amp; Bar
         </p>
 
-        {/* Badges */}
-        <div className="flex items-center justify-center gap-3 md:gap-5 mb-14 flex-wrap">
-          <span className="text-sm md:text-base font-semibold tracking-wide text-white/90 bg-white/10 px-5 py-2.5 rounded-full">
-            All-You-Can-Eat
-          </span>
-          <span className="text-white/30 text-sm hidden sm:inline">&middot;</span>
-          <span className="text-sm md:text-base font-semibold tracking-wide text-white/90 bg-white/10 px-5 py-2.5 rounded-full">
-            Halal Certified
-          </span>
-          <span className="text-white/30 text-sm hidden sm:inline">&middot;</span>
-          <span className="text-sm md:text-base font-semibold tracking-wide text-white/90 bg-white/10 px-5 py-2.5 rounded-full">
-            Full Bar
-          </span>
-        </div>
-
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link href="/menu" className="btn-primary text-base md:text-lg px-10 py-4 md:px-12 md:py-5">
             View Our Menu
