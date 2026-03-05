@@ -331,7 +331,7 @@ export default function MenuPage() {
                     <button
                       key={tier.tier}
                       onClick={() => setActiveTier(mappedKey)}
-                      className={`py-6 px-4 md:py-8 md:px-6 text-center rounded-lg transition-all duration-300 border ${
+                      className={`py-5 px-4 md:py-7 md:px-6 text-center rounded-lg transition-all duration-300 border ${
                         isActive
                           ? 'bg-white/[0.08] border-amber-500/60 ring-1 ring-amber-500/30'
                           : 'bg-white/[0.02] border-white/[0.08] hover:bg-white/[0.05] hover:border-white/20'
@@ -342,14 +342,12 @@ export default function MenuPage() {
                       }`}>
                         {tier.tier}
                       </p>
-                      <p className={`font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-2 transition-colors ${
+                      <p className={`font-heading text-3xl sm:text-4xl md:text-5xl font-bold mb-1 transition-colors ${
                         isActive ? 'text-white' : 'text-white/70'
                       }`}>
                         {tier.price}
                       </p>
-                      <p className="text-xs md:text-sm text-white/40 font-medium mb-3">{tier.time}</p>
-                      <div className="w-6 h-[1px] bg-white/15 mx-auto mb-3" />
-                      <p className="text-xs md:text-sm text-white/40 leading-relaxed">{tier.note}</p>
+                      <p className="text-xs md:text-sm text-white/40 font-medium">{tier.time}</p>
                     </button>
                   );
                 })}
