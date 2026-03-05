@@ -70,7 +70,11 @@ export default function AboutPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In production, this would send to an API endpoint
+    const subject = encodeURIComponent(`[Khan Application] ${formData.position} - ${formData.name}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nPosition: ${formData.position}\nPreferred Location: ${formData.location}\nAvailability: ${formData.availability}\n\nMessage:\n${formData.message}`
+    );
+    window.location.href = `mailto:khanfairoaksmall@gmail.com?subject=${subject}&body=${body}`;
     setSubmitted(true);
   };
 

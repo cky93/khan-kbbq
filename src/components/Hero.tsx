@@ -96,7 +96,7 @@ export function Hero() {
         </div>
 
         {/* Location Cards (fade up, staggered) */}
-        <div className="flex flex-col sm:flex-row items-stretch justify-center gap-3 max-w-lg mx-auto hero-cards">
+        <div className="flex flex-col sm:flex-row items-stretch justify-center gap-5 max-w-xl mx-auto hero-cards">
           {/* Fairfax */}
           <Link
             href="/locations/fairfax"
