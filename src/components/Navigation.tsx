@@ -77,12 +77,6 @@ export function Navigation() {
                   {link.label}
                 </Link>
               ))}
-              <a
-                href="tel:+12409567540"
-                className="text-sm font-bold px-6 py-2.5 border border-white/20 text-white/80 hover:bg-white hover:text-black transition-all duration-300 uppercase tracking-wider rounded-sm"
-              >
-                (240) 956-7540
-              </a>
             </div>
 
             {/* Mobile toggle */}
@@ -125,10 +119,6 @@ export function Navigation() {
               {link.label}
             </Link>
           ))}
-          <div className="w-10 h-px bg-amber-500/20 mt-2" />
-          <a href="tel:+12409567540" className="btn-outline mt-2 text-lg">
-            (240) 956-7540
-          </a>
         </div>
       </div>
     </>
