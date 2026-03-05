@@ -59,9 +59,9 @@ export default function ReservationPage() {
       <div className="max-w-4xl mx-auto px-5 md:px-12 py-12 md:py-16">
         {!location ? (
           /* Location Selection */
-          <div className="max-w-lg mx-auto">
+          <div className="max-w-xl mx-auto">
             <p className="text-center text-white/50 text-base mb-8">Select a location</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-10">
               {locations.map((loc) => (
                 <button
                   key={loc.id}

@@ -146,7 +146,7 @@ export default function MenuPage() {
               Select your location
             </p>
 
-            <div className="flex flex-col sm:flex-row items-stretch justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-stretch justify-center gap-5 sm:gap-10">
               {locations.map((loc) => (
                 <button
                   key={loc.id}
