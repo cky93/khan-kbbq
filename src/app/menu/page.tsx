@@ -12,9 +12,9 @@ const categories = [
   { id: 'drinks', label: 'Bar & Drinks', desc: 'Soju, cocktails, beer & wine', sub: 'Full bar menu', icon: '\u{1F378}' },
 ];
 
-const tierOrder = ['lunch', 'dinner', 'premium'] as const;
+const tierOrder = ['lunch', 'optionA', 'optionB'] as const;
 
-function isItemInTier(item: MenuItem, tier: 'lunch' | 'dinner' | 'premium'): boolean {
+function isItemInTier(item: MenuItem, tier: 'lunch' | 'optionA' | 'optionB'): boolean {
   const itemTier = item.tier || 'lunch';
   const itemIndex = tierOrder.indexOf(itemTier);
   const selectedIndex = tierOrder.indexOf(tier);
@@ -111,7 +111,7 @@ const locations = [
 export default function MenuPage() {
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [activeTier, setActiveTier] = useState<'lunch' | 'dinner' | 'premium' | null>(null);
+  const [activeTier, setActiveTier] = useState<'lunch' | 'optionA' | 'optionB' | null>(null);
   const activeSection = menuSections.find((s) => s.id === activeCategory);
 
   const handleCategoryChange = (catId: string | null) => {
@@ -319,12 +319,18 @@ export default function MenuPage() {
             {activeCategory === 'ayce' && (
               <div className="grid grid-cols-3 gap-3 md:gap-4 mb-10 md:mb-14">
                 {aycePricing.map((tier) => {
-                  const tierKey = tier.tier.toLowerCase() as 'lunch' | 'dinner' | 'premium';
-                  const isActive = activeTier === tierKey;
+                  const tierKey = tier.tier.toLowerCase().replace(' ', '') as 'lunch' | 'optionA' | 'optionB';
+                  const tierKeyMap: Record<string, 'lunch' | 'optionA' | 'optionB'> = {
+                    'lunch': 'lunch',
+                    'optiona': 'optionA',
+                    'optionb': 'optionB',
+                  };
+                  const mappedKey = tierKeyMap[tierKey] || tierKey;
+                  const isActive = activeTier === mappedKey;
                   return (
                     <button
                       key={tier.tier}
-                      onClick={() => setActiveTier(tierKey)}
+                      onClick={() => setActiveTier(mappedKey)}
                       className={`py-6 px-4 md:py-8 md:px-6 text-center rounded-lg transition-all duration-300 border ${
                         isActive
                           ? 'bg-white/[0.08] border-amber-500/60 ring-1 ring-amber-500/30'
