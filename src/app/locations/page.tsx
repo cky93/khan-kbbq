@@ -60,9 +60,17 @@ export default function LocationsPage() {
 
       {/* Location cards */}
       <div className="max-w-5xl mx-auto px-5 md:px-12 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+          {/* Vertical divider between cards */}
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2">
+            <div className="w-px h-full bg-gradient-to-b from-transparent via-white/[0.08] to-transparent" />
+          </div>
           {locations.map((loc, i) => (
             <ScrollReveal key={loc.name} delay={(i + 1) as 1 | 2}>
+              {/* Mobile horizontal divider before second card */}
+              {i === 1 && (
+                <div className="md:hidden w-full h-px bg-gradient-to-r from-transparent via-white/[0.1] to-transparent mb-6" />
+              )}
               <div className="overflow-hidden">
                 {/* Map */}
                 <div className="aspect-[16/10] bg-neutral-900">
